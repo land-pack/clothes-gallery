@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<form method="post" action="/contact/">
+    <table cellspacing="0" cellpadding="0" style="border:none;width:400px;margin:0 auto;">
+        <tr>
+            <th><label for="id_name">Name:</label></th>
+            <td><input id="id_name" type="text" name="name" maxlength="128"/></td>
+        </tr>
+        <tr>
+            <th><label for="id_email">Email:</label></th>
+            <td><input type="text" name="email" id="id_email"/></td>
+        </tr>
+        <tr>
+            <th><label for="id_subject">Subject:</label></th>
+            <td><input id="id_subject" type="text" name="subject" maxlength="128"/></td>
+        </tr>
+        <tr>
+            <th><label for="id_body">Body:</label></th>
+            <td><textarea id="id_body" rows="10" cols="40" name="body"></textarea></td>
+        </tr>
+        <tr>
+            <th></th>
+            <td><input type="submit" id="btn" name="btn" value="Send"/></td>
+        </tr>
+    </table>
+</form>
+
+{% endblock %}

@@ -28,10 +28,10 @@
         <div class="container">
             <ul class="nav">
                 <li>
-                    <a href="/" class="brand"><b>Tyler Griffin Photography</b></a>
+                    <a href="{{ url_for('gallery.index') }}" class="brand"><b>Frank AK</b></a>
                 </li>
                 <li class="active">
-                    <a href="/">Home</a>
+                    <a href="{{ url_for('gallery.index') }}">Home</a>
                 </li>
                 <li>
                     <a href="{{url_for('gallery.album')}}">Portfolio</a>
@@ -42,10 +42,10 @@
                 </li>
                 -->
                 <li>
-                    <a href="/pricing/">Pricing</a>
+                    <a href="{{ url_for('gallery.upload') }}">Uploads</a>
                 </li>
                 <li>
-                    <a href="/contact/">Contact</a>
+                    <a href="{{ url_for('gallery.contact') }}">Contact</a>
                 </li>
             </ul>
         </div>
