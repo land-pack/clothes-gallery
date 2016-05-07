@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div id="gallery-title">
+    <h2>Headshots</h2>
+    <a href="/portfolio/">&laquo; Back to Portfolio</a>
+</div>
+
+
+<div class="gallery masonry">
+
+    <div class="box photo masonry-brick">
+        <a href="#" class="thumbnail">
+            <img src="http://img.tylergriffinphotography.com/display/81a5241bd01a0da3d6dbbeaed68020e3.jpg"
+                 alt="Fliery"/>
+        </a>
+    </div>
+
+    <div class="box photo masonry-brick">
+        <a href="#" class="thumbnail">
+            <img src="http://img.tylergriffinphotography.com/display/0affbe1a5a84d4e7cee651e6482f94b7.jpg" alt="Ty"/>
+        </a>
+    </div>
+
+    <div class="box photo masonry-brick">
+        <a href="#" class="thumbnail">
+            <img src="http://img.tylergriffinphotography.com/display/4ffd4fd7ae0fbde7749634e764a0a028.jpg"
+                 alt="Cathy Mic"/>
+        </a>
+    </div>
+
+    <div class="box photo masonry-brick">
+        <a href="#" class="thumbnail">
+            <img src="http://img.tylergriffinphotography.com/display/e1110f75fa3a668905899ce8e20ca1e2.jpg" alt="Angie"/>
+        </a>
+    </div>
+
+    <div class="box photo masonry-brick">
+        <a href="#" class="thumbnail">
+            <img src="http://img.tylergriffinphotography.com/display/d3ed3029c6ce24594064e45fd48a581c.jpg" alt="Alma"/>
+        </a>
+    </div>
+
+    <div class="box photo masonry-brick">
+        <a href="#" class="thumbnail">
+            <img src="http://img.tylergriffinphotography.com/display/dc8d26105edc0dbd8b02c9bdbda393fa.jpg"
+                 alt="Times Square"/>
+        </a>
+    </div>
+
+    <div class="box photo masonry-brick">
+        <a href="#" class="thumbnail">
+            <img src="http://img.tylergriffinphotography.com/display/1a659f688d6602a33f38a073c7e32688.jpg"
+                 alt="Seated"/>
+        </a>
+    </div>
+
+    <div class="box photo masonry-brick">
+        <a href="#" class="thumbnail">
+            <img src="http://img.tylergriffinphotography.com/display/172bfe24382bbd5a16acebbfe80fd295.jpg" alt="Scarf"/>
+        </a>
+    </div>
+
+    <div class="box photo masonry-brick">
+        <a href="#" class="thumbnail">
+            <img src="http://img.tylergriffinphotography.com/display/c02cafa404bff1e0cf8a2b995e7fa6c6.jpg"
+                 alt="Celeste"/>
+        </a>
+    </div>
+
+</div>
+<div class="modal hide fade" id="lightbox">
+    <div class="modal-body">
+    </div>
+</div>
+<script src="http://media.tylergriffinphotography.com/js/jquery.masonry.min.js"></script>
+<script>
+    $(function () {
+        var $gallery = $('.gallery');
+        $gallery.imagesLoaded(function () {
+            $gallery.masonry({
+                itemSelector: '.box',
+                columnWidth: function (containerWidth) {
+                    return containerWidth / 3;
+                }
+            });
+        });
+
+        var lightbox = $('#lightbox');
+        var inner = lightbox.find('.modal-body');
+
+        inner.css({maxHeight: 'none'});
+
+        $('.thumbnail').click(function (e) {
+            e.preventDefault();
+            var img = $('<img>').attr({src: $(this).find('img').attr('src')});
+            img.bind('load', function () {
+                var el = img[0];
+                var width = el.width;
+                var height = el.height
+                var factor = 1.0;
+                if (height > $(window).height() * 0.8) {
+                    factor = $(window).height() * 0.8 / el.height;
+                }
+                else if (width > $(window).width() * 0.8) {
+                    factor = $(window).width() * 0.8 / el.width;
+                }
+                height = parseInt(height * factor);
+                width = parseInt(width * factor);
+                lightbox.css({
+                    width: width + 30,
+                    marginTop: height / -2,
+                    marginLeft: width / -2
+                });
+            });
+            inner.empty();
+            inner.append(img);
+            lightbox.modal();
+        });
+    });
+</script>
+
+
+{% endblock %}
