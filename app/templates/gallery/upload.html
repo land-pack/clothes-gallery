@@ -5,6 +5,13 @@
 {% block content %}
 
 {{ wtf.quick_form(form,enctype="multipart/form-data")}}
+<br>
+<p>
+    Add new category?
+    <a href="{{ url_for('gallery.add_category') }}">
+        Click here to add new category
+    </a>
+</p>
 
 {% endblock %}
 
