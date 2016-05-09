@@ -51,7 +51,7 @@ def contact():
 def upload():
     form = ImageForm()
     if request.method == 'POST':
-        if form.image.data.filename:
+        if form.image.data.filename and form.category.data:
             filename = secure_filename(form.image.data.filename)
             personal_dir = os.path.join(current_app.config['UPLOAD_FOLDER'], str(form.category.data.id))
             if not os.path.exists(personal_dir):
@@ -85,5 +85,4 @@ def lists(category_id):
 def send_image(category, filename):
     # personal_dir = os.path.join(current_app.config['UPLOAD_FOLDER'], category)
     personal_dir = current_app.config['UPLOAD_FOLDER'] + '/' + category + '/'
-    print '-----------', personal_dir, filename
     return send_from_directory(personal_dir, filename)
