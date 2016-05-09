@@ -8,6 +8,16 @@ class Category(db.Model):
     name = db.Column(db.String)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     images = db.relationship('Image', backref='cate', lazy='dynamic')
+    count = db.Column(db.Integer, default=0)
+    conver_url = db.Column(db.String)
+
+    def add_one(self, filename):
+        if self.count:
+            self.count += 1
+        else:
+            # init value as integer
+            self.count = 1
+            self.conver_url = filename
 
 
 class Image(db.Model):

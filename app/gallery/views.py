@@ -34,9 +34,13 @@ def album():
     if albums is None:
         abort(404)
 
-    image = albums[0].images.order_by(Image.timestamp.desc()).first()
+    # image = albums[0].images.order_by(Image.timestamp.desc()).first()
+    images = []
+    for album in albums:
+        Image.query.filter_by(category_id=album.id).first()
 
-    return render_template('gallery/album.html', albums=albums, image=image)
+    size_album = len(albums)
+    return render_template('gallery/album.html', size_album=size_album, albums=albums, image=images)
 
 
 @gallery.route('/contact')
@@ -50,7 +54,6 @@ def upload():
     if request.method == 'POST':
         if form.image.data.filename:
             filename = secure_filename(form.image.data.filename)
-            print form.category.data.id
             personal_dir = os.path.join(current_app.config['UPLOAD_FOLDER'], str(form.category.data.id))
             if not os.path.exists(personal_dir):
                 os.mkdir(personal_dir)
@@ -59,6 +62,10 @@ def upload():
             form.image.data.save(image_url)
             image = Image(name=form.name.data, category=str(form.category.data), url=image_url,
                           category_id=form.category.data.id)
+
+            cat = Category.query.filter_by(id=form.category.data.id).first()
+            cat.add_one(filename)  # Update the album counter by call instance method!
+            db.session.add(cat)
             db.session.add(image)
             db.session.commit()
             return redirect(url_for('gallery.index'))
@@ -73,8 +80,7 @@ def lists():
     return render_template('gallery/lists.html')
 
 
-@gallery.route('/image/<category>')
-@gallery.route('/image/<category>/<filename>')
+@gallery.route('/heads/<category>/<filename>')
 def send_image(category, filename):
     # personal_dir = os.path.join(current_app.config['UPLOAD_FOLDER'], category)
     personal_dir = current_app.config['UPLOAD_FOLDER'] + '/' + category + '/'

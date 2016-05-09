@@ -4,20 +4,20 @@
 <div class="row">
     <ul class="thumbnails">
 
-        {% for album in albums %}
+        {% for index in range(size_album) %}
 
+        {% if albums[index].count > 0 %}
         <li class="gallery span4">
-            <a href="{{ url_for('gallery.lists',filename=album.id) }}" class="thumbnail">
+            <a href="{{ url_for('gallery.lists',filename=albums[index].id) }}" class="thumbnail">
                 {% with path = '1/imut2.jpg' %}
-                {{ path  }}
-                <img src="{{ url_for('gallery.send_image',category=image.category_id,filename=image.name )}}" alt=""
+                <img src="{{ url_for('gallery.send_image',category=albums[index].id,filename=albums[index].conver_url )}}" alt=""
                      class="span4"/>
 
                 {% endwith %}
-                <h3>{{ album.name }}</h3>
+                <h3>{{ albums[index].name }}</h3>
             </a>
         </li>
-
+        {% endif %}
         {% endfor %}
 
 
