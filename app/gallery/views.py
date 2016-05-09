@@ -22,7 +22,7 @@ def add_category():
             category = Category(name=category_name)
             db.session.add(category)
             db.session.commit()
-            return redirect(url_for('gallery.index'))
+            return redirect(url_for('gallery.upload'))
         else:
             return redirect(url_for('.add_category'))
     return render_template('gallery/add-category.html', form=form)
@@ -60,7 +60,7 @@ def upload():
 
             image_url = os.path.join(personal_dir, filename)
             form.image.data.save(image_url)
-            image = Image(name=form.name.data, category=str(form.category.data), url=image_url,
+            image = Image(name=form.name.data, category=str(form.category.data), url=image_url, filename=filename,
                           category_id=form.category.data.id)
 
             cat = Category.query.filter_by(id=form.category.data.id).first()
@@ -68,16 +68,18 @@ def upload():
             db.session.add(cat)
             db.session.add(image)
             db.session.commit()
-            return redirect(url_for('gallery.index'))
+            return redirect(url_for('gallery.album'))
         else:
             return redirect(url_for('.upload'))
 
     return render_template('gallery/upload.html', form=form)
 
 
-@gallery.route('/lists')
-def lists():
-    return render_template('gallery/lists.html')
+@gallery.route('/lists/<category_id>')
+def lists(category_id):
+    album = Category.query.filter_by(id=category_id).first()
+    images = album.images.order_by(Image.timestamp.desc())
+    return render_template('gallery/lists.html', images=images)
 
 
 @gallery.route('/heads/<category>/<filename>')
