@@ -2,6 +2,7 @@ from flask import Flask
 from flask.ext.bootstrap import Bootstrap
 from flask.ext.sqlalchemy import SQLAlchemy
 from config import config
+from log import create_logger
 
 bootstrap = Bootstrap()
 db = SQLAlchemy()
@@ -17,5 +18,9 @@ def create_app(config_name):
 
     from .gallery import gallery as gallery_blueprint
     app.register_blueprint(gallery_blueprint, url_prefix='/gallery')
+
+    import logging
+    handler = create_logger('/var/log/gallery.log', level=logging.INFO)
+    app.logger.addHandler(handler)
 
     return app

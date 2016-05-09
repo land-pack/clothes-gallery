@@ -14,7 +14,6 @@ def index():
 
 @gallery.route('/add-category', methods=['GET', 'POST'])
 def add_category():
-    # choices = [(x.id, str(x.name)) for x in Category.query.all()]
     form = CategoryForm()
     if request.method == 'POST':
         if form.name.data:
