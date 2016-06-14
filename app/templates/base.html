@@ -3,16 +3,17 @@
 <head>
     {% block head %}
     <link rel="icon" type="image/png" href="http://media.tylergriffinphotography.com/img/favicon.png"/>
-    <title>Home :: Tyler Griffin Photography</title>
+    <title>Home :: LZ</title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <meta name="google-site-verification" content="fFSB2Uapxdane0mHui9_hUrg8Ac_loOLMufnNnh2TFs"/>
 
     <link rel="stylesheet" href="{{url_for('static',filename='css/typography.css')}} " type="text/css"
           media="screen,projection"/>
+        <link rel="stylesheet" href="{{url_for('static',filename='css/custom.css')}}" type="text/css"
+          media="screen,projection"/>
     <link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.min.css')}}" type="text/css"
           media="screen,projection"/>
-    <link rel="stylesheet" href="{{url_for('static',filename='css/custom.css')}}" type="text/css"
-          media="screen,projection"/>
+
     <link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap-resp.min.css')}}" type="text/css"
           media="screen,projection"/>
     <link rel="alternate" href="http://tylergriffinphotography.com/blog/feed/" title="RSS" type="application/rss+xml"/>
@@ -22,36 +23,7 @@
     {% endblock %}
 </head>
 <body>
-<div class="navbar navbar-inverse navbar-static-top">
-    {% block nav %}
-    <div class="navbar-inner">
-        <div class="container">
-            <ul class="nav">
-                <li>
-                    <a href="{{ url_for('gallery.index') }}" class="brand"><b>Frank AK</b></a>
-                </li>
-                <li class="active">
-                    <a href="{{ url_for('gallery.index') }}">Home</a>
-                </li>
-                <li>
-                    <a href="{{url_for('gallery.album')}}">Portfolio</a>
-                </li>
-                <!--
-                <li >
-                    <a href="/blog/">Blog</a>
-                </li>
-                -->
-
-                <li>
-                    <a href="{{ url_for('gallery.upload') }}">Uploads</a>
-                </li>
-                <li>
-                    <a href="{{ url_for('gallery.contact') }}">Contact</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-    {% endblock %}
+{% include "_nav.html" %}
 </div>
 <!--
 <div id="logo">
@@ -68,7 +40,7 @@
 </div>
 <footer>
     <div class="container center">
-        Copyright &copy; 2016 , Frank AK . All Rights Reserved
+        Copyright &copy; 2016 , LZ . All Rights Reserved
     </div>
 </footer>
 </body>

@@ -1,3 +1,4 @@
+# coding=utf-8
 from flask.ext.wtf import Form
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, IntegerField, SelectField
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
@@ -12,8 +13,8 @@ def enabled_categories():
 
 
 class ImageForm(Form):
-    name = StringField('Name', validators=[Length(1, 64)])
-    category = QuerySelectField(query_factory=enabled_categories, get_label='name', allow_blank=True,
+    name = StringField(u'衣服名称', validators=[Length(1, 64)])
+    category = QuerySelectField(u'服装分类', query_factory=enabled_categories, get_label='name', allow_blank=True,
                                 validators=[DataRequired()])
 
     @classmethod
@@ -21,10 +22,11 @@ class ImageForm(Form):
         choices = [(x.id, str(x.name)) for x in Category.query.all()]
         cls.lazy_value = choices
 
-    image = FileField('Your photo', validators=[Required(), DataRequired()])
-    submit = SubmitField('Upload')
+    image = FileField(u'衣服图像', validators=[Required(), DataRequired()])
+    submit = SubmitField(u'添加一件')
 
 
 class CategoryForm(Form):
-    name = StringField('New Category Name', validators=[Length(1, 64)])
-    submit = SubmitField('Add Category')
+    name = StringField(u'新的服饰分类', validators=[Length(1, 64)])
+    sextype = SelectField(u'服饰选择', choices=[('boy', u'男装'), ('girl', u'女装'), ('part', u'配件')])
+    submit = SubmitField(u'添加')

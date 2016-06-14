@@ -1,3 +1,4 @@
+# coding=utf-8
 import os
 from flask import render_template, redirect, request, flash, current_app, url_for, abort, send_from_directory
 from werkzeug import secure_filename
@@ -27,8 +28,8 @@ def add_category():
     return render_template('gallery/add-category.html', form=form)
 
 
-@gallery.route('/album/')
-def album():
+@gallery.route('/boy/')
+def boy():
     albums = Category.query.all()  # Get a list of the Category
     if albums is None:
         abort(404)
@@ -39,6 +40,36 @@ def album():
         Image.query.filter_by(category_id=album.id).first()
 
     size_album = len(albums)
+    return render_template('gallery/album.html', size_album=size_album, albums=albums, image=images)
+
+
+@gallery.route('/girl/')
+def girl():
+    albums = Category.query.all()  # Get a list of the Category
+    if albums is None:
+        abort(404)
+
+    # image = albums[0].images.order_by(Image.timestamp.desc()).first()
+    images = []
+    for album in albums:
+        Image.query.filter_by(category_id=album.id).first()
+
+    size_album = len(albums)
+    return render_template('gallery/album.html', size_album=size_album, albums=albums, image=images)
+
+
+@gallery.route('/part/')
+def part():
+    albums = Category.query.all()  # Get a list of the Category
+    if albums is None:
+        abort(404)
+
+    # image = albums[0].images.order_by(Image.timestamp.desc()).first()
+    images = []
+    for album in albums:
+        Image.query.filter_by(category_id=album.id).first()
+
+        size_album = len(albums)
     return render_template('gallery/album.html', size_album=size_album, albums=albums, image=images)
 
 
@@ -60,7 +91,7 @@ def upload():
             image_url = os.path.join(personal_dir, filename)
             form.image.data.save(image_url)
             image = Image(name=form.name.data, category=str(form.category.data), url=image_url, filename=filename,
-                          category_id=form.category.data.id)
+                          category_id=form.category.data.id, sextype=form.sextype.data.id)
 
             cat = Category.query.filter_by(id=form.category.data.id).first()
             cat.add_one(filename)  # Update the album counter by call instance method!
@@ -69,6 +100,7 @@ def upload():
             db.session.commit()
             return redirect(url_for('gallery.album'))
         else:
+            flash(u'请选择一件衣服,才可以上传哦:)')
             return redirect(url_for('.upload'))
 
     return render_template('gallery/upload.html', form=form)

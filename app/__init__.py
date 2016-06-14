@@ -19,8 +19,8 @@ def create_app(config_name):
     from .gallery import gallery as gallery_blueprint
     app.register_blueprint(gallery_blueprint, url_prefix='/gallery')
 
-    import logging
-    handler = create_logger('/var/log/gallery.log', level=logging.INFO)
-    app.logger.addHandler(handler)
+    # import logging
+    # handler = create_logger('/var/log/gallery.log', level=logging.INFO)
+    # app.logger.addHandler(handler)
 
     return app

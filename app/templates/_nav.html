@@ -1,0 +1,35 @@
+<div class="navbar navbar-inverse navbar-static-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <ul class="nav">
+                <li>
+                    <a href="{{ url_for('gallery.index') }}" class="brand"><b>LZ</b></a>
+                </li>
+                <li class="active">
+                    <a href="{{ url_for('gallery.index') }}">模特选择</a>
+                </li>
+                <li>
+                    <a href="{{url_for('gallery.boy')}}">男装</a>
+                </li>
+                <li>
+                    <a href="{{url_for('gallery.girl')}}">女装</a>
+                </li>
+                <li>
+                    <a href="{{url_for('gallery.part')}}">服饰配件</a>
+                </li>
+                <!--
+                <li >
+                    <a href="/blog/">Blog</a>
+                </li>
+                -->
+
+                <li>
+                    <a href="{{ url_for('gallery.upload') }}">添加衣服</a>
+                </li>
+                <li>
+                    <a href="{{ url_for('gallery.contact') }}">联系</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
